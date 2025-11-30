@@ -64,7 +64,7 @@ export default function SearchScreen({navigation}) {
           placeholder="Search products..."
           value={query}
           onChangeText={setQuery}
-          style={{ backgroundColor:'red', width:wp(80)}}
+          style={{width:wp(80)}}
         />
         <EvilIcons name={'search'} size={20} />
       </View>

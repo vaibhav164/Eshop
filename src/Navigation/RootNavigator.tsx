@@ -16,7 +16,7 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function RootNavigator() {
-      function CartStack() {
+  function CartStack() {
     return (
       <Stack.Navigator>
         <Stack.Screen
