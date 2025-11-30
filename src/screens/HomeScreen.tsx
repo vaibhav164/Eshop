@@ -27,9 +27,9 @@ export default function HomeScreen({navigation}) {
     navigation.navigate('ProductDetails', {id: item.id});
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={styles.container}>
       <ScrollView
-        contentContainerStyle={{paddingBottom: 120}}
+        contentContainerStyle={styles.scrollContent}
         showsHorizontalScrollIndicator={false}>
         <BannerCarousel />
         <SectionTitle title="Featured Products" />
@@ -41,8 +41,9 @@ export default function HomeScreen({navigation}) {
           renderItem={({item}) => (
             <ProductCard item={item} onPress={openProduct} />
           )}
-          contentContainerStyle={{paddingHorizontal: 12}}
+          contentContainerStyle={styles.flatListContent}
         />
+
         <View style={styles.header}>
           <Text style={styles.title}>Featured</Text>
         </View>
@@ -50,14 +51,14 @@ export default function HomeScreen({navigation}) {
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          style={{paddingLeft: 12}}>
+          style={styles.horizontalScroll}>
           {products.map(p => (
             <ProductCard key={p.id} item={p} onPress={openProduct} />
           ))}
         </ScrollView>
 
-        <View style={{marginTop: 20, paddingHorizontal: 12}}>
-          <Text style={{fontSize: 18, fontWeight: '700'}}>More for you</Text>
+        <View style={styles.moreSection}>
+          <Text style={styles.moreTitle}>More for you</Text>
           <FlatList
             data={products}
             horizontal
@@ -66,7 +67,7 @@ export default function HomeScreen({navigation}) {
             renderItem={({item}) => (
               <ProductCard item={item} onPress={openProduct} />
             )}
-            contentContainerStyle={{paddingHorizontal: 12}}
+            contentContainerStyle={styles.flatListContent}
           />
         </View>
       </ScrollView>
@@ -75,12 +76,23 @@ export default function HomeScreen({navigation}) {
     </SafeAreaView>
   );
 }
+
 const SectionTitle = ({title}) => (
   <View style={styles.header}>
     <Text style={styles.title}>{title}</Text>
   </View>
 );
+
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  scrollContent: {
+    paddingBottom: 120,
+  },
+  flatListContent: {
+    paddingHorizontal: 12,
+  },
   header: {
     marginVertical: 12,
     flexDirection: 'row',
@@ -88,6 +100,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 12,
   },
-  title: {fontSize: 20, fontWeight: '800'},
-  link: {color: '#0a7', fontWeight: '600'},
+  title: {
+    fontSize: 20,
+    fontWeight: '800',
+  },
+  link: {
+    color: '#0a7',
+    fontWeight: '600',
+  },
+  horizontalScroll: {
+    paddingLeft: 12,
+  },
+  moreSection: {
+    marginTop: 20,
+    paddingHorizontal: 12,
+  },
+  moreTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+  },
 });

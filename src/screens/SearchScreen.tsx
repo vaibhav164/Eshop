@@ -55,7 +55,7 @@ export default function SearchScreen({navigation}) {
   const open = item => navigation.navigate('ProductDetails', {id: item.id});
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={styles.container}>
       <Pressable style={styles.backBtn} onPress={() => navigation.goBack()}>
         <AntDesign name={'arrow-left'} size={20} />
       </Pressable>
@@ -64,7 +64,7 @@ export default function SearchScreen({navigation}) {
           placeholder="Search products..."
           value={query}
           onChangeText={setQuery}
-          style={{width:wp(80)}}
+          style={styles.searchInput}
         />
         <EvilIcons name={'search'} size={20} />
       </View>
@@ -72,21 +72,10 @@ export default function SearchScreen({navigation}) {
         data={results}
         keyExtractor={i => i.id}
         renderItem={({item}) => (
-          <TouchableOpacity
-            onPress={() => open(item)}
-            style={{
-              padding: 12,
-              borderBottomWidth: 0.5,
-              borderColor: '#eee',
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}>
-            <Image
-              source={{uri: item.images[0]}}
-              style={{height: hp(4), width: hp(4), marginRight: hp(1)}}
-            />
+          <TouchableOpacity onPress={() => open(item)} style={styles.itemRow}>
+            <Image source={{uri: item.images[0]}} style={styles.itemImage} />
             <View>
-              <Text style={{fontWeight: '700'}}>{item.name}</Text>
+              <Text style={styles.itemName}>{item.name}</Text>
               <Text>₹{item.price}</Text>
             </View>
           </TouchableOpacity>
@@ -97,6 +86,9 @@ export default function SearchScreen({navigation}) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   input: {
     borderWidth: 1,
     borderColor: '#ddd',
@@ -108,11 +100,29 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingRight: 10,
   },
+  searchInput: {
+    width: wp(80),
+  },
   backBtn: {
     zIndex: 1000,
     borderRadius: 100,
     paddingHorizontal: '4%',
     margin: '2%',
     marginTop: Platform.OS === 'ios' ? hp(8) : hp(2),
+  },
+  itemRow: {
+    padding: 12,
+    borderBottomWidth: 0.5,
+    borderColor: '#eee',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  itemImage: {
+    height: hp(4),
+    width: hp(4),
+    marginRight: hp(1),
+  },
+  itemName: {
+    fontWeight: '700',
   },
 });

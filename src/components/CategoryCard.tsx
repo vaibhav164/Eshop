@@ -9,7 +9,7 @@ export default function CategoryCard({title, onPress, item}) {
       <View style={styles.inner}>
         <Image
           source={{uri: item?.images[0]}}
-          style={{height: hp(4), width: hp(4), marginRight: 10}}
+          style={styles.image}
         />
         <Text style={styles.text}>{title}</Text>
       </View>
@@ -32,4 +32,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
   },
+  image:{height: hp(4), width: hp(4), marginRight: 10}
 });
