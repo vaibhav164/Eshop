@@ -163,6 +163,12 @@ export default function ProductDetailsScreen({ route }) {
             >
               <Text style={styles.removeText}>Remove from Cart</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.addBtn]}
+              onPress={() => navigation.navigate('HomeMain', { screen: 'Cart' })}
+            >
+              <Text style={styles.addText}>View Cart</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
