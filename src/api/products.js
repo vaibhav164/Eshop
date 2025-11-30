@@ -105,8 +105,9 @@ const mockProducts = [
     name: "Stainless Steel Water Bottle (1L)",
     price: 799,
     images: [
-      "https://images.unsplash.com/photo-1589118949245-7d38baf380d6?w=800",
-      "https://images.unsplash.com/photo-1611250027715-d7f0a3c4c2ff?w=800"
+      "https://f.nooncdn.com/p/pnsku/N47964873A/45/_/1747911280/4f192f70-3101-43cc-ab86-22063f9afc6f.jpg?width=800",
+      "https://f.nooncdn.com/p/v1622725789/N47964873A_2.jpg?width=800",
+      "https://f.nooncdn.com/p/v1622725790/N47964873A_4.jpg?width=800"
     ],
     video: "",
     description:

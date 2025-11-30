@@ -44,5 +44,5 @@ export default function ImageSlider({ item = [], onPressMedia }) {
 
 const styles = StyleSheet.create({
   wrap: { backgroundColor: 'green' },
-  image: { width:wp(100), height: wp(100), resizeMode: 'cover' }
+  image: { width:wp(100), height: wp(100), resizeMode: "stretch" }
 });
