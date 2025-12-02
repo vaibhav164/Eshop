@@ -75,26 +75,6 @@ export const updateQty = createAsyncThunk(
 });
 
 
-// const cartSlice = createSlice({
-//   name: 'cart',
-//   initialState,
-//   reducers: {
-//     addItem(state, action: PayloadAction<CartItem>) {
-//       const existing = state.items.find(i => i.id === action.payload.id);
-//       if (existing) {
-//         existing.quantity += action.payload.quantity;
-//       } else {
-//         state.items.push(action.payload);
-//       }
-//     },
-//     removeItem(state, action: PayloadAction<string>) {
-//       state.items = state.items.filter(i => i.id !== action.payload);
-//     },
-//     clearCart(state) {
-//       state.items = [];
-//     },
-//   },
-// });
 const cartSlice2 = createSlice({
   name: "cart",
   initialState,
