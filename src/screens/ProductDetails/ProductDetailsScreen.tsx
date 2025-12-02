@@ -21,6 +21,7 @@ import {AntDesign} from "@react-native-vector-icons/ant-design"
 import EvilIcons from '@react-native-vector-icons/evil-icons';
 import { useAppDispatch } from "../../store/hooks";
 import { addToCart, removeFromCart } from "../../store/slices/cartSlice";
+import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 export default function ProductDetailsScreen({ route }) {
   const { id } = route.params;
   const [product, setProduct] = useState(null);
@@ -59,18 +60,16 @@ const dispatch = useAppDispatch();
         <ActivityIndicator size="large" />
       </SafeAreaView>
     );
-
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 , backgroundColor:'#fff'}}>
       {/* Back Button */}
       <Pressable
         style={styles.backBtn}
         onPress={() => navigation.goBack()}
       >
-        <Text style={styles.backText}>X</Text>
+        <MaterialDesignIcons name="arrow-left" size={25} />
       </Pressable>
-
-      <ScrollView contentContainerStyle={{ paddingBottom: 120 }}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 120 }}>
         <Pressable style={styles.wishlistBtn} onPress={()=>setFavourate(!favourate)}>
                 {favourate ? (
                   <AntDesign name="heart" size={22} color="red"/>
@@ -210,17 +209,15 @@ const Section = ({ title, children }) => (
 );
 
 const styles = StyleSheet.create({
-  center: { flex: 1, justifyContent: "center", alignItems: "center" },
+  center: { flex: 1, justifyContent: "center", alignItems: "center" , backgroundColor:'#fff'},
 
   backBtn: {
-    position: "absolute",
+    backgroundColor:'#fff',
     zIndex: 1000,
-    borderRadius: 100,
-    paddingHorizontal: "4%",
-    paddingVertical: "2%",
-    backgroundColor: "rgba(255,255,255,0.7)",
+    padding: wp(3),
     margin: "2%",
-    marginTop:Platform.OS==="ios"?hp(8):0
+    justifyContent:'center',
+    marginTop:Platform.OS==="ios"?hp(8):hp(1)
   },
   backText: { fontSize: 16, color: "#000", fontWeight: "bold" },
 

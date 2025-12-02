@@ -43,7 +43,7 @@ export default function HomeScreen({navigation}) {
     <SafeAreaView style={styles.container}>
       <ScrollView
         contentContainerStyle={styles.scrollContent}
-        showsHorizontalScrollIndicator={false}>
+        showsVerticalScrollIndicator={false}>
         <BannerCarousel />
         <SectionTitle title="Featured Products" />
         <FlatList
