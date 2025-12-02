@@ -14,23 +14,23 @@ import {
 import ImageViewing from "react-native-image-viewing";
 import Video from 'react-native-video';
 import { useNavigation } from '@react-navigation/native';
-import { useCartDispatch } from '../../context/CartContext';
 import { fetchProductById } from '../../api/products';
 import ImageSlider from '../../components/ImageSlider';
 import { hp, wp } from '../../utils/responsive';
 import {AntDesign} from "@react-native-vector-icons/ant-design"
 import EvilIcons from '@react-native-vector-icons/evil-icons';
-
+import { useAppDispatch } from "../../store/hooks";
+import { addToCart, removeFromCart } from "../../store/slices/cartSlice";
 export default function ProductDetailsScreen({ route }) {
   const { id } = route.params;
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(false);
+const dispatch = useAppDispatch();
 
   const [visibleIndex, setVisibleIndex] = useState(null);
   const [videoVisible, setVideoVisible] = useState(false);
   const [favourate,setFavourate]=useState(false)
   const navigation = useNavigation();
-  const dispatch = useCartDispatch();
 
   const media = product
     ? [...product.images, ...(product.video ? [product.video] : [])]
@@ -152,14 +152,14 @@ export default function ProductDetailsScreen({ route }) {
           <View style={{ marginTop: 20 }}>
             <TouchableOpacity
               style={styles.addBtn}
-              onPress={() => dispatch({ type: 'ADD', payload: { product, qty: 1 } })}
+              onPress={() => dispatch(addToCart({ product, qty: 1 })  )}
             >
               <Text style={styles.addText}>Add to Cart</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={[styles.addBtn, styles.removeBtn]}
-              onPress={() => dispatch({ type: 'REMOVE', payload: { id: product.id } })}
+              onPress={() => dispatch(removeFromCart(product.id)) }
             >
               <Text style={styles.removeText}>Remove from Cart</Text>
             </TouchableOpacity>

@@ -11,7 +11,7 @@ import HomeScreen from '../screens/HomeScreen';
 import { hp } from '../utils/responsive';
 import CategoriesScreen from '../screens/CategoriesScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-
+import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -48,10 +48,10 @@ export default function RootNavigator() {
           tabBarIcon: ({color, size}) => {
             let iconName = '';
             if (route.name === 'Home') iconName = 'archive';
-            else if (route.name === 'Categories') iconName = 'navicon';
-            else if (route.name === 'Cart') iconName = 'cart';
-            else if (route.name === 'Profile') iconName = 'user';
-             return <EvilIcons name={iconName} size={30} />;
+            else if (route.name === 'Categories') iconName = 'apps';
+            else if (route.name === 'Cart') iconName = 'cart-outline';
+            else if (route.name === 'Profile') iconName = 'emoticon-excited-outline';
+             return <MaterialDesignIcons name={iconName} size={25} />;
           },
           tabBarActiveBackgroundColor: '#feee00',
           tabBarStyle: {height: hp(6)},

@@ -7,51 +7,56 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
-import {useCartDispatch, cartSelectors, useCart} from '../context/CartContext';
+import {cartSelectors} from '../context/CartContext';
 import {useNavigation} from '@react-navigation/native';
 import Header from '../components/Headers';
 import CartItemCard from '../components/CartItemCard';
 import CouponBanner from '../components/CouponBanner';
 import OrderSummary from '../components/OrderSummary';
-
+import {useAppDispatch, useAppSelector} from '../store/hooks';
+import {addToCart, removeFromCart, updateQty} from '../store/slices/cartSlice';
 export default function CartScreen() {
-  const state = useCart();
-  const dispatch = useCartDispatch();
+  const dispatch = useAppDispatch();
   const nav = useNavigation();
-  const items = Object.values(state.items);
   const [giftBox, setGiftBox] = useState(false);
-
-  const subtotal = cartSelectors.getSubtotal(state);
+  const cartItems = useAppSelector(state => state.cart.items);
+  const subtotal = cartSelectors.getSubtotal(cartItems);
   const tax = Math.round(subtotal * 0.18);
   const giftCharge = giftBox ? 30 : 0;
   const total = subtotal + tax + giftCharge;
-
   return (
     <SafeAreaView style={{flex: 1}}>
       <Header title="Your Cart" />
-      {items.length === 0 ? (
+      {cartItems.length === 0 ? (
         <View style={styles.empty}>
           <Text>Your cart is empty.</Text>
         </View>
       ) : (
         <>
           <FlatList
-            data={items}
-            keyExtractor={it => it.product.id}
-            renderItem={({item}) => (
-              <CartItemCard
-                item={item}
-                onIncrement={() =>
-                  dispatch({type: 'INCREMENT', payload: {id: item.product.id}})
-                }
-                onDecrement={() =>
-                  dispatch({type: 'DECREMENT', payload: {id: item.product.id}})
-                }
-                onRemove={() =>
-                  dispatch({type: 'REMOVE', payload: {id: item.product.id}})
-                }
-              />
-            )}
+            data={cartItems}
+            keyExtractor={item => item.id}
+            renderItem={({item}) => {
+              return (
+                <CartItemCard
+                  item={item}
+                  onIncrement={() => {
+                    dispatch(addToCart({product: item, qty: 1}));
+                  }}
+                  onDecrement={() => {
+                    let newQty = item.qty - 1;
+                    if (item.qty == 1) {
+                      dispatch(removeFromCart(item.id));
+                      return;
+                    }
+                    dispatch(updateQty({id: item.id, qty: newQty}));
+                  }}
+                  onRemove={() => {
+                    dispatch(removeFromCart(item.id));
+                  }}
+                />
+              );
+            }}
           />
           <CouponBanner onApply={() => {}} />
           <Pressable

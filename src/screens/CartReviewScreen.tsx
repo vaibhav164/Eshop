@@ -7,22 +7,22 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import {cartSelectors, useCart, useCartDispatch} from '../context/CartContext';
+import {cartSelectors} from '../context/CartContext';
 import {useNavigation} from '@react-navigation/native';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { removeFromCart } from '../store/slices/cartSlice';
 
 export default function CartReviewScreen() {
-  const state = useCart();
   const nav = useNavigation();
-  const dispatch = useCartDispatch();
-  const items = Object.values(state.items);
-
-  const subtotal = cartSelectors.getSubtotal(state);
+  const dispatch = useAppDispatch();
+  const items = useAppSelector((state) => state.cart.items);
+  const subtotal = cartSelectors.getSubtotal(items);
   const tax = Math.round(subtotal * 0.18);
   const total = subtotal + tax;
 
   const placeOrder = async () => {
     await new Promise(res => setTimeout(res, 800));
-    dispatch({type: 'CLEAR'});
+    items.forEach(item =>dispatch(removeFromCart(item.id)))
     nav.replace('Confirmation', {total});
   };
 
@@ -41,13 +41,13 @@ export default function CartReviewScreen() {
         <Text style={styles.sectionTitle}>Order Summary</Text>
         <FlatList
           data={items}
-          keyExtractor={i => i.product.id}
+          keyExtractor={item => item.id}
           renderItem={({item}) => (
             <View style={styles.itemRow}>
               <Text>
-                {item.product.name} x{item.qty}
+                {item.name} x{item.qty}
               </Text>
-              <Text>₹{item.product.price * item.qty}</Text>
+              <Text>₹{item.price * item.qty}</Text>
             </View>
           )}
         />

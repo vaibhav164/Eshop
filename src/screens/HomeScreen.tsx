@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -10,21 +10,34 @@ import {
 import BannerCarousel from '../components/BannerCarousel';
 import ProductCard from '../components/ProductCard';
 import {fetchProducts} from '../api/products';
+import { connectToDatabase, createTables } from '../storage/data';
 
 export default function HomeScreen({navigation}) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+      ConnectToDB();
     setLoading(true);
     fetchProducts().then(p => {
       setProducts(p);
       setLoading(false);
     });
+  
   }, []);
 
-  const openProduct = item =>
+  const ConnectToDB = useCallback(async () => {
+  try {
+    const db = await connectToDatabase()
+    await createTables(db)
+  } catch (error) {
+    console.error(error)
+  }
+}, [])
+    
+  const openProduct = async(item) =>{
     navigation.navigate('ProductDetails', {id: item.id});
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -72,7 +85,6 @@ export default function HomeScreen({navigation}) {
         </View>
       </ScrollView>
 
-      {/* <CartButton /> */}
     </SafeAreaView>
   );
 }

@@ -6,11 +6,11 @@ import EvilIcons from '@react-native-vector-icons/evil-icons';
 export default function CartItemCard({ item, onIncrement, onDecrement, onRemove }) {
   return (
     <View style={styles.card}>
-      <Image source={{ uri: item.product.images[0] }} style={styles.image} />
+      <Image source={{ uri: item.images[0] }} style={styles.image} />
       <View style={{ flex: 1 }}>
-        <Text style={styles.name}>{item.product.name}</Text>
-        <Text style={styles.price}>₹{item.product.price}</Text>
-        <Text style={styles.note}>Only {item.product.stock || 9} Left</Text>
+        <Text style={styles.name}>{item.name}</Text>
+        <Text style={styles.price}>₹{item.price}</Text>
+        <Text style={styles.note}>Only {item.stock || 9} Left</Text>
       </View>
       <View style={styles.qtyBox}>
         <TouchableOpacity onPress={onIncrement} style={[styles.qtyBtn, {backgroundColor:'green'}]}><Text style={styles.counter}>+</Text></TouchableOpacity>
